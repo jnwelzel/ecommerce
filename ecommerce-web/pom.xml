@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>ecommerce</artifactId>
+		<groupId>com.jonwelzel</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>ecommerce-web</artifactId>
+	<packaging>war</packaging>
+	<name>ecommerce Web module</name>
+	<dependencies>
+		<dependency>
+			<groupId>com.jonwelzel</groupId>
+			<artifactId>ecommerce-ejb</artifactId>
+			<type>ejb</type>
+			<scope>provided</scope>
+		</dependency>
+        <dependency>
+            <groupId>com.jonwelzel</groupId>
+            <artifactId>ecommerce-persistence</artifactId>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+		<dependency>
+			<groupId>com.jonwelzel</groupId>
+			<artifactId>ecommerce-commons</artifactId>
+		</dependency>
+		<dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+					</archive>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
