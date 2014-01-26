@@ -2,7 +2,7 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
     <persistence-unit name="testPU" transaction-type="JTA">
-      <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+      <jta-data-source>jdbc/__TimerPool</jta-data-source>
     </persistence-unit>
 
 </persistence>

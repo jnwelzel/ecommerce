@@ -33,6 +33,7 @@
 					</modules>
 				</configuration>
 			</plugin>
+			<!-- For integration testing only
 			<plugin> 
 			   	<groupId>org.glassfish</groupId> 
 			   	<artifactId>maven-embedded-glassfish-plugin</artifactId> 
@@ -75,6 +76,7 @@
 			      	 </execution> 
 			   	</executions> 
 			</plugin>
+			 -->
 		</plugins>
 	</build>
 	<dependencies>
@@ -88,9 +90,5 @@
 			<artifactId>ecommerce-ejb</artifactId>
 			<type>ejb</type>
 		</dependency>
-		<dependency>
-		    <groupId>ch.qos.logback</groupId>
-		    <artifactId>logback-classic</artifactId>
-		</dependency>	
 	</dependencies>
 </project>

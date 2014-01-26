@@ -1,6 +1,7 @@
 package com.jonwelzel.persistence.entities;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,6 +35,16 @@ public class Produto extends Bean<Long> {
 	@Column
 	private BigDecimal custoCompra;
 
+	public Produto() {
+	}
+
+	public Produto(String nome, String descricao, String arquivoFoto, BigDecimal custoCompra) {
+		this.nome = nome;
+		this.descricao = descricao;
+		this.arquivoFoto = arquivoFoto;
+		this.custoCompra = custoCompra;
+	}
+
 	@Override
 	public Long getId() {
 		return id;
@@ -42,6 +53,10 @@ public class Produto extends Bean<Long> {
 	@Override
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getCustoFormatado() {
+		return custoCompra != null ? NumberFormat.getCurrencyInstance().format(custoCompra) : "R$ 0,00";
 	}
 
 }

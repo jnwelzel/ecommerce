@@ -1,17 +1,24 @@
 package com.jonwelzel.persistence.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 /**
- * Super class of all persistent entities.
+ * Base mapped super class for all persistent entities.
  * 
  * @author jwelzel
  * 
  * @param <PK> The type of the primary key, which must be serializable.
  */
+@MappedSuperclass
 public abstract class Bean<PK extends Serializable> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -19,6 +26,12 @@ public abstract class Bean<PK extends Serializable> implements Serializable {
 	@Version
 	@Column(name = "VERSION", nullable = false)
 	private Long version;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdAt;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updatedAt;
 
 	public Bean(PK id, Long version) {
 		this.version = version;
@@ -37,6 +50,17 @@ public abstract class Bean<PK extends Serializable> implements Serializable {
 
 	public void setVersion(Long version) {
 		this.version = version;
+	}
+
+	@PrePersist
+	public void prePersist() {
+		createdAt = new Date();
+		updatedAt = new Date();
+	}
+
+	@PreUpdate
+	public void preUpdate() {
+		updatedAt = new Date();
 	}
 
 	@Override

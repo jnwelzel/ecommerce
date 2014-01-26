@@ -1,10 +1,10 @@
 package com.jonwelzel.ejb;
 
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Session Bean implementation class HelloServiceImpl
@@ -12,14 +12,14 @@ import org.slf4j.Logger;
 @Stateless(mappedName = "helloService")
 public class HelloServiceImpl implements HelloService {
 
-	@Inject
-	Logger log;
+	Logger log = LoggerFactory.getLogger(getClass());
 
-	private static String DEFAULT_NAME = "World"; 
-	
+	private static String DEFAULT_NAME = "World";
+
+	@Override
 	public String greet(String name) {
 		String finalName = StringUtils.defaultIfEmpty(name, DEFAULT_NAME);
-		String greeting =  "Hello "+finalName;
+		String greeting = "Hello " + finalName;
 		log.debug(greeting);
 		return greeting;
 	}

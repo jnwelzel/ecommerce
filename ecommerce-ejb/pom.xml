@@ -28,6 +28,13 @@
 		</plugins>
 	</build>
 	<dependencies>
+		<!-- For EJB testing -->
+		<dependency>
+		    <groupId>org.glassfish.main.extras</groupId>
+		    <artifactId>glassfish-embedded-all</artifactId>
+		    <version>3.1.2.2</version>
+		    <scope>test</scope>
+		</dependency>
 		<!-- Compile scope dependencies -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -52,10 +59,5 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
-		<dependency>
-		    <groupId>ch.qos.logback</groupId>
-		    <artifactId>logback-classic</artifactId>
-		    <scope>test</scope>
-		</dependency>	
 	</dependencies>
 </project>
