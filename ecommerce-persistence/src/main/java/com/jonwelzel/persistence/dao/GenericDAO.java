@@ -42,6 +42,7 @@ public class GenericDAO<PK extends Serializable, T extends Bean<PK>> implements 
 
 	@Override
 	public void remove(T t) {
+		t = em.getReference(clazz, t.getId());
 		em.remove(t);
 	}
 

@@ -2,12 +2,13 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
     <persistence-unit name="javaDB" transaction-type="JTA"> 
-	   	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider> 
+	   	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+	   	<jta-data-source>jdbc/__TimerPool</jta-data-source>
 	   	<properties> 
 	      	 <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/> 
 	      	 <property name="eclipselink.target-database" value="DERBY"/>
 	      	 <property name="eclipselink.logging.level" value="INFO" />
-	      	 <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:EcommerceDB;create=true" />
+	      	 <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/memory:EcommerceDB;create=true" />
 	      	 <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/> 
 	   	</properties> 
 	   	

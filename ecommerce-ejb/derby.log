@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
-Sun Jan 26 11:55:56 BRST 2014:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0143-ced5-d482-00000506fbe0 
-on database directory /tmp/gfembed3145492828548222107tmp/lib/databases/embedded_default  with class loader sun.misc.Launcher$AppClassLoader@fb53f6 
+Sun Jan 26 15:49:42 BRST 2014:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0143-cfab-d92d-0000046c0418 
+on database directory /tmp/gfembed8519644254718752412tmp/lib/databases/ejbtimer  with class loader sun.misc.Launcher$AppClassLoader@45484a 
 Loaded from file:/home/jwelzel/.m2/repository/org/glassfish/main/extras/glassfish-embedded-all/3.1.2.2/glassfish-embedded-all-3.1.2.2.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.7.0_51-b13

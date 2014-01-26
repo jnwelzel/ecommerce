@@ -44,8 +44,6 @@
         <dependency>
             <groupId>com.jonwelzel</groupId>
             <artifactId>ecommerce-persistence</artifactId>
-            <scope>compile</scope>
-            <version>${project.version}</version>
         </dependency>
 		<!-- Provided scope dependencies -->
 		<dependency>

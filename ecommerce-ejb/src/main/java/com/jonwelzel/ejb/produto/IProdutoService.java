@@ -22,4 +22,10 @@ public interface IProdutoService extends IService<Long, Produto> {
 
 	public Produto salvar(Produto produto);
 
+	public Produto encontrar(Long id);
+
+	public void excluir(Produto produto);
+
+	public List<Produto> listar();
+
 }

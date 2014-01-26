@@ -49,4 +49,19 @@ public class ProdutoService implements IProdutoService {
 		return getDAO().save(produto);
 	}
 
+	@Override
+	public Produto encontrar(Long id) {
+		return getDAO().find(id);
+	}
+
+	@Override
+	public void excluir(Produto produto) {
+		getDAO().remove(produto);
+	}
+
+	@Override
+	public List<Produto> listar() {
+		return getDAO().findAll();
+	}
+
 }

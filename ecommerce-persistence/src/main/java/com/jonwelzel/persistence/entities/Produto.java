@@ -55,6 +55,38 @@ public class Produto extends Bean<Long> {
 		this.id = id;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getArquivoFoto() {
+		return arquivoFoto;
+	}
+
+	public void setArquivoFoto(String arquivoFoto) {
+		this.arquivoFoto = arquivoFoto;
+	}
+
+	public BigDecimal getCustoCompra() {
+		return custoCompra;
+	}
+
+	public void setCustoCompra(BigDecimal custoCompra) {
+		this.custoCompra = custoCompra;
+	}
+
 	public String getCustoFormatado() {
 		return custoCompra != null ? NumberFormat.getCurrencyInstance().format(custoCompra) : "R$ 0,00";
 	}
