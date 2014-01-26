@@ -1,4 +1,4 @@
-package com.jonwelzel.persistence;
+package com.jonwelzel.ejb.persistence;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;

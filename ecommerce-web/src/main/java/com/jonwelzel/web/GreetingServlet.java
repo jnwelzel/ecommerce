@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jonwelzel.ejb.HelloService;
 import com.jonwelzel.ejb.produto.IProdutoService;
 import com.jonwelzel.persistence.entities.Produto;
 
@@ -22,15 +21,11 @@ public class GreetingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private HelloService helloService;
-
-	@Inject
 	private IProdutoService produtoService;
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException {
 		String name = request.getParameter("name");
-		String greeting = helloService.greet(name);
 		//		request.setAttribute("greeting", greeting);
 
 		List<Produto> produtos = produtoService.listar();
