@@ -10,6 +10,9 @@
 	      	 <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:EcommerceDB;create=true" />
 	      	 <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/> 
 	   	</properties> 
+	   	
+	   	<class>com.jonwelzel.persistence.entities.Produto</class>
+	   	
 	</persistence-unit>
 
 </persistence>

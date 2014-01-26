@@ -30,9 +30,9 @@ public class ProdutoCrudTest {
 		Map<String, Object> properties = new HashMap<String, Object>();
 		//		properties.put(EJBContainer.APP_NAME, "foo");
 		properties.put(EJBContainer.MODULES, new File("target/classes"));
-		properties.put("org.glassfish.ejb.embedded.glassfish.installation.root", "./src/test/glassfish");
-		properties.put("org.glassfish.ejb.embedded.glassfish.configuration.file",
-				"./src/test/glassfish/domains/domain1/config/domain.xml");
+		//		properties.put("org.glassfish.ejb.embedded.glassfish.installation.root", "./src/test/glassfish");
+		//		properties.put("org.glassfish.ejb.embedded.glassfish.configuration.file",
+		//				"./src/test/resources/glassfish/domains/domain1/config/domain.xml");
 
 		ejbContainer = EJBContainer.createEJBContainer(properties);
 		service = (IProdutoService) ejbContainer.getContext().lookup("java:global/classes/ProdutoService");
