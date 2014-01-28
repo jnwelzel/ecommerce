@@ -5,9 +5,13 @@ import java.text.NumberFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.jonwelzel.persistence.enumerations.Categorias;
 
 /**
  * 
@@ -26,6 +30,9 @@ public class Produto extends Bean<Long> {
 	@Column(length = 50, nullable = false)
 	private String nome;
 
+	@Column(length = 80, nullable = false)
+	private String marca;
+
 	@Column(length = 200)
 	private String descricao;
 
@@ -35,14 +42,21 @@ public class Produto extends Bean<Long> {
 	@Column
 	private BigDecimal custoCompra;
 
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private Categorias categoria;
+
 	public Produto() {
 	}
 
-	public Produto(String nome, String descricao, String arquivoFoto, BigDecimal custoCompra) {
+	public Produto(String nome, String descricao, String marca, String arquivoFoto, BigDecimal custoCompra,
+			Categorias categoria) {
 		this.nome = nome;
 		this.descricao = descricao;
+		this.marca = marca;
 		this.arquivoFoto = arquivoFoto;
 		this.custoCompra = custoCompra;
+		this.categoria = categoria;
 	}
 
 	@Override
@@ -85,6 +99,22 @@ public class Produto extends Bean<Long> {
 
 	public void setCustoCompra(BigDecimal custoCompra) {
 		this.custoCompra = custoCompra;
+	}
+
+	public String getMarca() {
+		return marca;
+	}
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
+	public Categorias getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categorias categoria) {
+		this.categoria = categoria;
 	}
 
 	public String getCustoFormatado() {
