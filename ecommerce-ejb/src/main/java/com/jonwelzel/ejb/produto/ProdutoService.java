@@ -64,4 +64,17 @@ public class ProdutoService implements IProdutoService {
 		return getDAO().findAll();
 	}
 
+	@Override
+	public List<Produto> listarAtivos() {
+		List<Produto> result = getEntityManager().createNamedQuery("Produto.listarAtivos", Produto.class)
+				.getResultList();
+		return result;
+	}
+
+	@Override
+	public Integer getQuantidadeTotal() {
+		Long result = (Long) getEntityManager().createNamedQuery("Produto.quantidadeTotal").getSingleResult();
+		return result.intValue();
+	}
+
 }

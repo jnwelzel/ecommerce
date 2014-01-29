@@ -1,7 +1,6 @@
 package com.jonwelzel.persistence.entities;
 
 import java.math.BigDecimal;
-import java.text.NumberFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,15 +9,22 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Transient;
 
 import com.jonwelzel.persistence.enumerations.Categorias;
 
 /**
+ * Produto vendido na loja virtual.
  * 
  * @author jwelzel
  * 
  */
 @Entity
+@NamedQueries(value = {
+		@NamedQuery(name = "Produto.listarAtivos", query = "SELECT p FROM Produto p WHERE p.custoCompra IS NOT NULL AND p.custoCompra > 0 ORDER BY p.custoCompra ASC"),
+		@NamedQuery(name = "Produto.quantidadeTotal", query = "SELECT SUM(p.quantidade) FROM Produto p") })
 public class Produto extends Bean<Long> {
 
 	private static final long serialVersionUID = 1L;
@@ -39,24 +45,34 @@ public class Produto extends Bean<Long> {
 	@Column
 	private String arquivoFoto;
 
-	@Column
+	@Column(scale = 2, precision = 10)
 	private BigDecimal custoCompra;
+
+	@Column
+	private BigDecimal valorVenda;
+
+	@Transient
+	private String valorTexto;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private Categorias categoria;
 
+	@Column(nullable = false)
+	private Integer quantidade = 0;
+
 	public Produto() {
 	}
 
 	public Produto(String nome, String descricao, String marca, String arquivoFoto, BigDecimal custoCompra,
-			Categorias categoria) {
+			Categorias categoria, Integer quantidade) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.marca = marca;
 		this.arquivoFoto = arquivoFoto;
 		this.custoCompra = custoCompra;
 		this.categoria = categoria;
+		this.quantidade = quantidade;
 	}
 
 	@Override
@@ -117,8 +133,28 @@ public class Produto extends Bean<Long> {
 		this.categoria = categoria;
 	}
 
-	public String getCustoFormatado() {
-		return custoCompra != null ? NumberFormat.getCurrencyInstance().format(custoCompra) : "R$ 0,00";
+	public BigDecimal getValorVenda() {
+		return valorVenda;
+	}
+
+	public void setValorVenda(BigDecimal custoVenda) {
+		this.valorVenda = custoVenda;
+	}
+
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	public String getValorTexto() {
+		return valorTexto;
+	}
+
+	public void setValorTexto(String valorTexto) {
+		this.valorTexto = valorTexto;
 	}
 
 }

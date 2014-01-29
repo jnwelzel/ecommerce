@@ -28,4 +28,8 @@ public interface IProdutoService extends IService<Long, Produto> {
 
 	public List<Produto> listar();
 
+	public List<Produto> listarAtivos();
+
+	public Integer getQuantidadeTotal();
+
 }

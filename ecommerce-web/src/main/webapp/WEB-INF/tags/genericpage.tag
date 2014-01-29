@@ -26,7 +26,9 @@
 					<div class="col-xs-7">
 						<menu>
 							<ul>
+								<li><a class="pull-right" href="/ecommerce">Home</a></li>
 								<li><a class="pull-right" href="carrinho">Carrinho</a></li>
+								<li><a class="pull-right" href="admin">Admin</a></li>
 							</ul>
 						</menu>
 					</div>
@@ -46,6 +48,7 @@
 			<jsp:doBody/>
 		</div>
 		<div id="pagefooter" class="container">
+			<hr/>
 			<p id="copyright">
 				Aqui não tem esse negócio de <strong><i>copyright</i></strong> não!&nbsp;
 				<a href="https://github.com/jnwelzel/ecommerce" target="_blank"><img alt="Github" title="Github" src="resources/img/github.png"></a>

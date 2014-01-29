@@ -49,7 +49,7 @@ public class ProdutoCrudTest {
 		log.info("Starting \"CRUD\" test");
 		assertNotNull("ProdutoService não encontrado.", service);
 		Produto produto = new Produto("Moto X XT1058", "16GB 4G/3G Tela 4.5 10MP 2GB RAM", "Motorola",
-				"resources/img/moto-x.jpg", new BigDecimal(800), Categorias.SMARTPHONE);
+				"resources/img/moto-x.jpg", new BigDecimal(800), Categorias.SMARTPHONE, 500);
 		Long produtoId = service.salvar(produto).getId();
 		assertTrue("Id do produto está nulo.", produtoId != null);
 

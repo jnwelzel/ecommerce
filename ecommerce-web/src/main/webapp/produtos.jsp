@@ -9,13 +9,15 @@
         		<h1>Confira abaixo nossos produtos!</h1>
             </div>
           	<div class="row">
-          		<c:forEach var="produto" items="${produtos}">
+          		<c:forEach var="produto" items="${produtos}" varStatus="i">
           			<div class="col-xs-4 produto">
           				<img class="img-circle" style="width: 150px; height: 150px;" data-src="holder.js/150x150" alt="150x150" src="${produto.arquivoFoto}">
 			          	<h2>${produto.marca} ${produto.nome}</h2>
 			          	<p>${produto.descricao}</p>
-			          	<button type="button" class="btn btn-primary">Adicionar ao carrinho</button>
+			          	<h4>${produto.valorTexto}</h4>
+			          	<button type="button" class="btn btn-primary">Adicionar ao carrinho ${i.index+1}</button>
 			        </div>
+			        <c:if test="${(i.index + 1) % 3 == 0}"></div><div class="row"></c:if>
           		</c:forEach>
           	</div>
         </div>
