@@ -15,7 +15,10 @@
 			          	<h2>${produto.marca} ${produto.nome}</h2>
 			          	<p>${produto.descricao}</p>
 			          	<h4>${produto.valorTexto}</h4>
-			          	<button type="button" class="btn btn-primary">Adicionar ao carrinho</button>
+			          	<form action="produtos" method="post">
+			          		<input type="hidden" value="${produto.codigo}" name="codigo">
+				          	<button type="submit" class="btn btn-primary">Adicionar ao carrinho</button>
+			          	</form>
 			        </div>
 			        <c:if test="${(i.index + 1) % 3 == 0}"></div><div class="row"></c:if>
           		</c:forEach>

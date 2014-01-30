@@ -1,12 +1,44 @@
 ﻿<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <t:genericpage>
 	<jsp:body>
         <div class="container">
         	<div class="row">
 				<div class="col-xs-12">
-					<p>Página do carrinho.</p>
+					<h1>Carrinho de compras</h1>
+					<hr/>
+				</div>
+        	</div>
+        	
+        	<div class="row">
+				<div class="col-xs-12">
+					<c:if test="${produtos == null}">
+						<div class="alert alert-warning"><strong>Atenção!</strong> Você não possui nenhum produto no carrinho.</div>
+					</c:if>
+					<c:if test="${produtos != null}">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>Produto</th>
+									<th>Quantidade</th>
+									<th>Preço</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="produto" items="${produtos}" varStatus="i">
+								<tr>
+									<td>${produto.marca} ${produto.nome }</td>
+									<td><input type="number" value="${produto.quantidadeAtual}" /></td>
+									<td>${produto.valorTexto}</td>
+									<th>${produto.valorTotalTexto}</th>
+								</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</c:if>
 				</div>
         	</div>
         </div>

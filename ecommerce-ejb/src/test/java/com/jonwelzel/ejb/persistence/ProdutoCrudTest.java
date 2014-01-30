@@ -4,7 +4,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,14 +17,14 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.jonwelzel.ejb.produto.IProdutoService;
+import com.jonwelzel.ejb.produto.ProdutoBean;
+import com.jonwelzel.ejb.produto.ProdutoRemoteBusiness;
 import com.jonwelzel.persistence.entities.Produto;
-import com.jonwelzel.persistence.enumerations.Categorias;
 
 public class ProdutoCrudTest {
 
 	private static EJBContainer ejbContainer;
-	private static IProdutoService service;
+	private static ProdutoRemoteBusiness service;
 	private Logger log = LoggerFactory.getLogger(getClass());
 
 	@BeforeClass
@@ -35,7 +35,8 @@ public class ProdutoCrudTest {
 		properties.put(EJBContainer.MODULES, new File("target/classes"));
 
 		ejbContainer = EJBContainer.createEJBContainer(properties);
-		service = (IProdutoService) ejbContainer.getContext().lookup("java:global/classes/ProdutoService");
+		service = (ProdutoRemoteBusiness) ejbContainer.getContext().lookup(
+				"java:global/classes/" + ProdutoBean.EJB_NAME);
 	}
 
 	@AfterClass
@@ -47,20 +48,25 @@ public class ProdutoCrudTest {
 	@Test
 	public void test() throws NamingException {
 		log.info("Starting \"CRUD\" test");
-		assertNotNull("ProdutoService não encontrado.", service);
-		Produto produto = new Produto("Moto X XT1058", "16GB 4G/3G Tela 4.5 10MP 2GB RAM", "Motorola",
-				"resources/img/moto-x.jpg", new BigDecimal(800), Categorias.SMARTPHONE, 500);
-		Long produtoId = service.salvar(produto).getId();
-		assertTrue("Id do produto está nulo.", produtoId != null);
+		String codigo = "7896547891597";
+		Produto produto = service.encontrarPorCodigo(codigo);
+		assertNotNull("Produto com codigo \"" + codigo + "\" não foi encontrado.", produto);
 
-		produto = null;
-		produto = service.encontrar(produtoId);
-		assertNotNull("Produto com id \"" + produtoId + "\" não foi encontrado.", produto);
+		assertTrue("Quantidade total inicial não está correta.", service.getQuantidadeTotalInicial() == 2500);
+		assertTrue("Quantidade total atual não está correta.", service.getQuantidadeTotalAtual() == 2500);
 
 		String novaDescricao = "Nova descrição";
 		produto.setDescricao(novaDescricao);
+		produto.setQuantidadeAtual(400);
 		produto = service.salvar(produto);
-		assertTrue("Não foi possível editar a descrção do produto", produto.getDescricao().equals(novaDescricao));
+		assertTrue("Não foi possível editar a descrição do produto", produto.getDescricao().equals(novaDescricao));
+
+		assertTrue("Quantidade total atual do \"Moto X\" não está correta.",
+				service.getQuantidadeTotalAtualPorProduto(produto) == 400);
+
+		assertTrue(
+				"Não foi possivel encontrar os produtos usando seus codigos.",
+				service.encontrarPorCodigos(Arrays.asList(new String[] { "7896547891597", "7890286781035" })).size() == 2);
 
 		service.excluir(produto);
 	}

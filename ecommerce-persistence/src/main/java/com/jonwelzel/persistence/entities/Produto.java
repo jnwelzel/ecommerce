@@ -1,6 +1,8 @@
 package com.jonwelzel.persistence.entities;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +26,11 @@ import com.jonwelzel.persistence.enumerations.Categorias;
 @Entity
 @NamedQueries(value = {
 		@NamedQuery(name = "Produto.listarAtivos", query = "SELECT p FROM Produto p WHERE p.custoCompra IS NOT NULL AND p.custoCompra > 0 ORDER BY p.custoCompra ASC"),
-		@NamedQuery(name = "Produto.quantidadeTotal", query = "SELECT SUM(p.quantidade) FROM Produto p") })
+		@NamedQuery(name = "Produto.quantidadeTotalInicial", query = "SELECT SUM(p.quantidadeInicial) FROM Produto p WHERE p.custoCompra IS NOT NULL AND p.custoCompra > 0"),
+		@NamedQuery(name = "Produto.quantidadeTotalAtual", query = "SELECT SUM(p.quantidadeAtual) FROM Produto p WHERE p.custoCompra IS NOT NULL AND p.custoCompra > 0"),
+		@NamedQuery(name = "Produto.quantidadeTotalAtualPorProduto", query = "SELECT SUM(p.quantidadeAtual) FROM Produto p WHERE p.codigo = :codigo"),
+		@NamedQuery(name = "Produto.econtrarPorCodigo", query = "SELECT p FROM Produto p WHERE p.codigo = :codigo"),
+		@NamedQuery(name = "Produto.encontrarPorCodigos", query = "SELECT p FROM Produto p WHERE p.quantidadeAtual > 0 AND p.codigo IN :codigos") })
 public class Produto extends Bean<Long> {
 
 	private static final long serialVersionUID = 1L;
@@ -32,6 +38,9 @@ public class Produto extends Bean<Long> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Column(length = 13, nullable = false, unique = true)
+	private String codigo;
 
 	@Column(length = 50, nullable = false)
 	private String nome;
@@ -46,33 +55,41 @@ public class Produto extends Bean<Long> {
 	private String arquivoFoto;
 
 	@Column(scale = 2, precision = 10)
-	private BigDecimal custoCompra;
+	private BigDecimal custoCompra = BigDecimal.ZERO;
 
 	@Column
-	private BigDecimal valorVenda;
+	private BigDecimal valorVenda = BigDecimal.ZERO;
 
 	@Transient
 	private String valorTexto;
+
+	@Transient
+	private String valorTotalTexto;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private Categorias categoria;
 
 	@Column(nullable = false)
-	private Integer quantidade = 0;
+	private Integer quantidadeAtual = 0;
+
+	@Column(nullable = false)
+	private Integer quantidadeInicial = 0;
 
 	public Produto() {
 	}
 
-	public Produto(String nome, String descricao, String marca, String arquivoFoto, BigDecimal custoCompra,
-			Categorias categoria, Integer quantidade) {
+	public Produto(String codigo, String nome, String descricao, String marca, String arquivoFoto,
+			BigDecimal custoCompra, Categorias categoria, Integer quantidadeAtual, Integer quantidadeInicial) {
+		this.codigo = codigo;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.marca = marca;
 		this.arquivoFoto = arquivoFoto;
 		this.custoCompra = custoCompra;
 		this.categoria = categoria;
-		this.quantidade = quantidade;
+		this.quantidadeAtual = quantidadeAtual;
+		this.quantidadeInicial = quantidadeInicial;
 	}
 
 	@Override
@@ -83,6 +100,14 @@ public class Produto extends Bean<Long> {
 	@Override
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getNome() {
@@ -141,20 +166,36 @@ public class Produto extends Bean<Long> {
 		this.valorVenda = custoVenda;
 	}
 
-	public Integer getQuantidade() {
-		return quantidade;
+	public Integer getQuantidadeAtual() {
+		return quantidadeAtual;
 	}
 
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
+	public void setQuantidadeAtual(Integer quantidade) {
+		this.quantidadeAtual = quantidade;
+	}
+
+	public Integer getQuantidadeInicial() {
+		return quantidadeInicial;
+	}
+
+	public void setQuantidadeInicial(Integer quantidadeInicial) {
+		this.quantidadeInicial = quantidadeInicial;
 	}
 
 	public String getValorTexto() {
-		return valorTexto;
+		return NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(valorVenda);
 	}
 
 	public void setValorTexto(String valorTexto) {
 		this.valorTexto = valorTexto;
+	}
+
+	public String getValorTotalTexto() {
+		return valorTotalTexto;
+	}
+
+	public void setValorTotalTexto(String valorTotalTexto) {
+		this.valorTotalTexto = valorTotalTexto;
 	}
 
 }
