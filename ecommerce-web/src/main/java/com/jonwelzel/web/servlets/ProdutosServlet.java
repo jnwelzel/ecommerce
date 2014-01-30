@@ -37,7 +37,6 @@ public class ProdutosServlet extends HttpServlet {
 				valorVenda = valorVenda.add(valorVenda.multiply(percentual));
 			}
 			produto.setValorVenda(valorVenda);
-			//			produto.setValorTexto(NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(valorVenda));
 		}
 		request.setAttribute("produtos", produtos);
 		getServletContext().getRequestDispatcher("/produtos.jsp").forward(request, response);
