@@ -67,6 +67,7 @@ public class StartupBean {
 		atualizarPrecos();
 	}
 
+	// Validate so that only admin role principals are allowed to call this method
 	public void alterarConfiguracoes(BigDecimal percentualLucro, BigDecimal valorDespesasTotais) {
 		this.percentualLucro = percentualLucro;
 		this.valorDespesasTotais = valorDespesasTotais;

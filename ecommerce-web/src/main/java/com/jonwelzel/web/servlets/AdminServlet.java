@@ -5,14 +5,18 @@ import java.math.BigDecimal;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.HttpConstraint;
+import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jonwelzel.ejb.StartupBean;
+import com.jonwelzel.persistence.Constants;
 
 @WebServlet(urlPatterns = "/admin")
+@ServletSecurity(@HttpConstraint(rolesAllowed = Constants.ADMIN))
 public class AdminServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
